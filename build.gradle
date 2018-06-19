@@ -1,0 +1,16 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    ext {
+        applicationId = 'stan.streams'
+        versionCode = 1806200203
+        versionName = "0.00.01"
+    }
+}
