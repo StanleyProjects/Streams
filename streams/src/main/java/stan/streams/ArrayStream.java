@@ -10,7 +10,7 @@ final class ArrayStream<T>
 {
     private final T[] raw;
 
-    public ArrayStream(T[] raw)
+    ArrayStream(T[] raw)
     {
         this.raw = raw;
     }
