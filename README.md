@@ -7,7 +7,7 @@ Use stream operations to express sophisticated data processing queries.
 
 |function|implement|tested|
 |-|-|-|
-|foreach|:heavy_check_mark:|:x:|
+|foreach|:heavy_check_mark:|:heavy_check_mark:|
 |map|:x:|:x:|
 |filter|:x:|:x:|
 |order|:x:|:x:|
