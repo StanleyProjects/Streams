@@ -1,0 +1,7 @@
+apply plugin: 'application'
+
+mainClassName = "stan.streams.App"
+
+dependencies {
+    compile project(':streams')
+}
