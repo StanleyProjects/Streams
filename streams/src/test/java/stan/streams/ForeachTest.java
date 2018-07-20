@@ -17,7 +17,7 @@ public class ForeachTest
     @Test
     public void foreachIntegerRandomNotEmptyListTest()
     {
-        foreachIntegerListTest(randomIntegerList());
+        foreachIntegerListTest(nextIntegerList());
     }
     @Test
     public void foreachIntegerEmptyListTest()
@@ -27,7 +27,7 @@ public class ForeachTest
     @Test
     public void foreachStringRandomNotEmptyListTest()
     {
-        foreachStringListTest(randomStringList());
+        foreachStringListTest(nextStringList());
     }
     @Test
     public void foreachStringEmptyListTest()
@@ -71,33 +71,6 @@ public class ForeachTest
                    }
                });
         assertEquals("Sums must be equals!", sum1, sum2);
-    }
-
-    private List<Integer> randomIntegerList()
-    {
-        return randomIntegerList(1000 + nextInt(1000));
-    }
-    private List<Integer> randomIntegerList(int count)
-    {
-        List<Integer> data = new ArrayList<Integer>(count);
-        for(int i=0; i<count; i++)
-        {
-            data.add(1000 + nextInt(1000));
-        }
-        return data;
-    }
-    private List<String> randomStringList()
-    {
-        return randomStringList(1000 + nextInt(1000));
-    }
-    private List<String> randomStringList(int count)
-    {
-        List<String> data = new ArrayList<String>(count);
-        for(int i=0; i<count; i++)
-        {
-            data.add(nextString());
-        }
-        return data;
     }
 
     private class Sum
