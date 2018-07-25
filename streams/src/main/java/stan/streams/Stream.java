@@ -2,6 +2,7 @@ package stan.streams;
 
 import java.util.List;
 
+import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
 import stan.streams.functions.Predicate;
@@ -12,4 +13,5 @@ public interface Stream<T>
     <D> Stream<D> map(Function<T, D> consumer);
     Stream<T> filter(Predicate<T> predicate);
     List<T> list();
+    <R> R turn(R r, BiConsumer<R, T> consumer);
 }

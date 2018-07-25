@@ -76,4 +76,30 @@ public abstract class MainTest
         }
         return data;
     }
+
+    protected final class Sum
+    {
+        private int sum = 0;
+
+        public Sum()
+        {}
+
+        public void add(int i)
+        {
+            sum += i;
+        }
+        public int value()
+        {
+            return sum;
+        }
+
+        public boolean equals(Object o)
+        {
+            return o instanceof Sum && equals((Sum)o);
+        }
+        private boolean equals(Sum that)
+        {
+            return sum == that.sum;
+        }
+    }
 }

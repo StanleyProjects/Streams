@@ -3,6 +3,7 @@ package stan.streams;
 import java.util.Arrays;
 import java.util.List;
 
+import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
 import stan.streams.functions.Predicate;
@@ -62,5 +63,13 @@ final class ArrayStream<T>
     public List<T> list()
     {
         return Arrays.asList(raw);
+    }
+    public <R> R turn(R r, BiConsumer<R, T> consumer)
+    {
+        for(T t: raw)
+        {
+            consumer.accept(r, t);
+        }
+        return r;
     }
 }

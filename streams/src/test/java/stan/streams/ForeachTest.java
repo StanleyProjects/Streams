@@ -98,23 +98,4 @@ public class ForeachTest
                });
         assertEquals("Sums must be equals!", sum1, sum2);
     }
-
-    private class Sum
-    {
-        private int sum = 0;
-
-        private void add(int i)
-        {
-            sum += i;
-        }
-
-        public boolean equals(Object o)
-        {
-            return o instanceof Sum && equals((Sum)o);
-        }
-        private boolean equals(Sum that)
-        {
-            return sum == that.sum;
-        }
-    }
 }
