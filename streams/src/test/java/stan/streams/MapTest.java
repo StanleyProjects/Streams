@@ -41,15 +41,14 @@ public class MapTest
         {
             sum1 += it.length();
         }
-        List<Integer> result = Streams.from(data).map(new Function<String, Integer>()
+        int sum2 = 0;
+        for(int it: Streams.from(data).map(new Function<String, Integer>()
         {
             public Integer apply(String it)
             {
                 return it.length();
             }
-        }).list();
-        int sum2 = 0;
-        for(int it: result)
+        }).list())
         {
             sum2 += it;
         }
@@ -62,15 +61,14 @@ public class MapTest
         {
             sum1 += (it + "_" + it*2 + "_" + it/2 + "_" + it*it).hashCode();
         }
-        List<String> result = Streams.from(data).map(new Function<Integer, String>()
+        int sum2 = 0;
+        for(String it: Streams.from(data).map(new Function<Integer, String>()
         {
             public String apply(Integer it)
             {
                 return it + "_" + it*2 + "_" + it/2 + "_" + it*it;
             }
-        }).list();
-        int sum2 = 0;
-        for(String it: result)
+        }).list())
         {
             sum2 += it.hashCode();
         }

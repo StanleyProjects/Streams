@@ -2,7 +2,6 @@ package stan.streams;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,6 +33,16 @@ public class ForeachTest
     {
         foreachStringListTest(Collections.<String>emptyList());
     }
+    @Test
+    public void foreachObjectRandomNotEmptyListTest()
+    {
+        foreachObjectListTest(nextList());
+    }
+    @Test
+    public void foreachObjectEmptyListTest()
+    {
+        foreachObjectListTest(Collections.emptyList());
+    }
 
     private void foreachIntegerListTest(List<Integer> data)
     {
@@ -53,7 +62,6 @@ public class ForeachTest
                });
         assertEquals("Sums must be equals!", sum1, sum2);
     }
-
     private void foreachStringListTest(List<String> data)
     {
         Sum sum1 = new Sum();
@@ -66,6 +74,24 @@ public class ForeachTest
                .foreach(new Consumer<String>()
                {
                    public void accept(String it)
+                   {
+                       sum2.add(it.hashCode()*2);
+                   }
+               });
+        assertEquals("Sums must be equals!", sum1, sum2);
+    }
+    private void foreachObjectListTest(List<Object> data)
+    {
+        Sum sum1 = new Sum();
+        for(Object it: data)
+        {
+            sum1.add(it.hashCode()*2);
+        }
+        final Sum sum2 = new Sum();
+        Streams.from(data)
+               .foreach(new Consumer<Object>()
+               {
+                   public void accept(Object it)
                    {
                        sum2.add(it.hashCode()*2);
                    }

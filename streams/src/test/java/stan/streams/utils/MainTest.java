@@ -36,7 +36,7 @@ public abstract class MainTest
         return new String(array, Charset.forName("UTF-8"));
     }
 
-    protected final List<?> nextList()
+    protected final List<Object> nextList()
     {
         return nextList(1000 + nextInt(1000));
     }
