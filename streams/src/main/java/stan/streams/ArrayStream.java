@@ -5,6 +5,7 @@ import java.util.List;
 
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
+import stan.streams.functions.Predicate;
 
 final class ArrayStream<T>
     implements Stream<T>
@@ -36,6 +37,27 @@ final class ArrayStream<T>
             newRaw[i] = function.apply(raw[i]);
         }
         return new ArrayStream<D>(newRaw);
+    }
+    public Stream<T> filter(Predicate<T> predicate)
+    {
+        int l = 0;
+        for(T t: raw)
+        {
+            if(predicate.test(t))
+            {
+                l++;
+            }
+        }
+        T[] newRaw = (T[])new Object[l];
+        int i=0;
+        for(T t: raw)
+        {
+            if(predicate.test(t))
+            {
+                newRaw[i++] = t;
+            }
+        }
+        return new ArrayStream<T>(newRaw);
     }
     public List<T> list()
     {

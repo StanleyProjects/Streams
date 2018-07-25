@@ -12,6 +12,7 @@ public class App
         System.out.println("Basic functions:");
         foreachSample(Arrays.asList(1, 2, 3, 4, 5));
         mapSample(Arrays.asList("aa", "bbb", "cccc", "dd", "e"));
+        filterSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
     }
 
     static private void foreachSample(Collection<?> source)
@@ -56,6 +57,32 @@ public class App
     {
         System.out.println(Streams.from(source)
                                   .map(String::length)
+                                  .list());
+    }
+
+    static private void filterSample(Collection<String> source)
+    {
+        System.out.println("\t- java 8 filter for: " + source);
+        long time = System.nanoTime();
+        filterJava8Sample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+        System.out.println("\t- streams filter for: " + source);
+        time = System.nanoTime();
+        filterStreamsSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+    }
+    private static void filterJava8Sample(Collection<String> source)
+    {
+        System.out.println(source.stream()
+                                 .filter(it -> it.toLowerCase().startsWith("c")
+                                     || it.toLowerCase().startsWith("p"))
+                                 .collect(Collectors.toList()));
+    }
+    private static void filterStreamsSample(Collection<String> source)
+    {
+        System.out.println(Streams.from(source)
+                                  .filter(it -> it.toLowerCase().startsWith("c")
+                                      || it.toLowerCase().startsWith("p"))
                                   .list());
     }
 }

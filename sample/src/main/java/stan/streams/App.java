@@ -7,6 +7,7 @@ import java.util.List;
 
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
+import stan.streams.functions.Predicate;
 
 public class App
 {
@@ -16,6 +17,7 @@ public class App
         System.out.println("Basic functions:");
         foreachSample(Arrays.asList(1, 2, 3, 4, 5));
         mapSample(Arrays.asList("aa", "bbb", "cccc", "dd", "e"));
+        filterSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
     }
 
     static private <T> void foreachSample(Collection<T> source)
@@ -76,6 +78,44 @@ public class App
                                       public Integer apply(String it)
                                       {
                                           return it.length();
+                                      }
+                                  })
+                                  .list());
+    }
+
+    static private void filterSample(Collection<String> source)
+    {
+        System.out.println("\t- old filter for: " + source);
+        long time = System.nanoTime();
+        filterOldSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+        System.out.println("\t- streams filter for: " + source);
+        time = System.nanoTime();
+        filterStreamsSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+    }
+    private static void filterOldSample(Collection<String> source)
+    {
+        List<String> result = new ArrayList<String>();
+        for(String it: source)
+        {
+            if(it.toLowerCase().startsWith("c")
+                || it.toLowerCase().startsWith("p"))
+            {
+                result.add(it);
+            }
+        }
+        System.out.println(result);
+    }
+    private static void filterStreamsSample(Collection<String> source)
+    {
+        System.out.println(Streams.from(source)
+                                  .filter(new Predicate<String>()
+                                  {
+                                      public boolean test(String it)
+                                      {
+                                          return it.toLowerCase().startsWith("c")
+                                              || it.toLowerCase().startsWith("p");
                                       }
                                   })
                                   .list());
