@@ -11,5 +11,4 @@ Use stream operations to express sophisticated data processing queries.
 |-|-|-|
 |foreach|:heavy_check_mark:|:heavy_check_mark:|
 |map|:heavy_check_mark:|:heavy_check_mark:|
-|filter|:x:|:x:|
-|order|:x:|:x:|
+|filter|:heavy_check_mark:|:x:|
