@@ -10,7 +10,7 @@ allprojects {
     }
     ext {
         applicationId = 'stan.streams'
-        versionCode = 1807251612
-        versionName = "0.01.03"
+        versionCode = 1807261821
+        versionName = "0.02.01"
     }
 }

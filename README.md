@@ -12,3 +12,9 @@ Use stream operations to express sophisticated data processing queries.
 |foreach|:heavy_check_mark:|:heavy_check_mark:|
 |map|:heavy_check_mark:|:heavy_check_mark:|
 |filter|:heavy_check_mark:|:heavy_check_mark:|
+
+### Collect feature
+
+|function|implement|tested|
+|-|-|-|
+|to list|:heavy_check_mark:|:heavy_check_mark:|
