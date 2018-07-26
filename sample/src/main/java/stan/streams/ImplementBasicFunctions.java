@@ -79,7 +79,7 @@ class ImplementBasicFunctions
                                           return it.length();
                                       }
                                   })
-                                  .list());
+                                  .turn(To.<Integer>list()));
     }
 
     static private void filterSample(Collection<String> source)
@@ -117,7 +117,7 @@ class ImplementBasicFunctions
                                               || it.toLowerCase().startsWith("p");
                                       }
                                   })
-                                  .list());
+                                  .turn(To.<String>list()));
     }
 
     private ImplementBasicFunctions()

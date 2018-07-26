@@ -48,7 +48,7 @@ public class MapTest
             {
                 return it.length();
             }
-        }).list())
+        }).turn(To.<Integer>list()))
         {
             sum2 += it;
         }
@@ -68,7 +68,7 @@ public class MapTest
             {
                 return it + "_" + it*2 + "_" + it/2 + "_" + it*it;
             }
-        }).list())
+        }).turn(To.<String>list()))
         {
             sum2 += it.hashCode();
         }

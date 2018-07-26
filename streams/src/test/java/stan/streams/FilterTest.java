@@ -64,7 +64,7 @@ public class FilterTest
                 return it > 250
                     && it < 750;
             }
-        }).list())
+        }).turn(To.<Integer>list()))
         {
             sum2 += (it + "_" + it*2 + "_" + it/2 + "_" + it*it).hashCode();
         }
@@ -89,7 +89,7 @@ public class FilterTest
                 return it.length() > 75
                     && it.length() < 125;
             }
-        }).list())
+        }).turn(To.<String>list()))
         {
             sum2 += (it + "_" + it.length()*2 + "_" + it.length()/2 + "_" + it.length()*it.length()).hashCode();
         }
@@ -112,7 +112,7 @@ public class FilterTest
             {
                 return (it.hashCode()/3-1)%2 == 0;
             }
-        }).list())
+        }).turn(To.list()))
         {
             sum2 += (it.hashCode() + "_" + it.hashCode()*2 + "_" + it.hashCode()/2 + "_" + it.hashCode()*it.hashCode()).hashCode();
         }

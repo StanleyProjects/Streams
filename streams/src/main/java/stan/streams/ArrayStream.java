@@ -1,8 +1,5 @@
 package stan.streams;
 
-import java.util.Arrays;
-import java.util.List;
-
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
@@ -50,19 +47,14 @@ final class ArrayStream<T>
             }
         }
         T[] newRaw = (T[])new Object[l];
-        int i=0;
         for(T t: raw)
         {
             if(predicate.test(t))
             {
-                newRaw[i++] = t;
+                newRaw[--l] = t;
             }
         }
         return new ArrayStream<T>(newRaw);
-    }
-    public List<T> list()
-    {
-        return Arrays.asList(raw);
     }
     public <R> R turn(R r, BiConsumer<R, T> consumer)
     {
@@ -71,5 +63,9 @@ final class ArrayStream<T>
             consumer.accept(r, t);
         }
         return r;
+    }
+    public <R> R turn(Collector<R, T> collector)
+    {
+        return turn(collector.supplier(), collector.accumulator());
     }
 }

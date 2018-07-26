@@ -56,7 +56,7 @@ class ImplementBasicFunctions
     {
         System.out.println(Streams.from(source)
                                   .map(String::length)
-                                  .list());
+                                  .turn(To.list()));
     }
 
     static private void filterSample(Collection<String> source)
@@ -82,7 +82,7 @@ class ImplementBasicFunctions
         System.out.println(Streams.from(source)
                                   .filter(it -> it.toLowerCase().startsWith("c")
                                       || it.toLowerCase().startsWith("p"))
-                                  .list());
+                                  .turn(To.list()));
     }
 
     private ImplementBasicFunctions()

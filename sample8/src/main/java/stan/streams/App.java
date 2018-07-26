@@ -5,6 +5,9 @@ public class App
     static public void main(String[] args)
     {
         System.out.println("\tJava 8 Streams demonstration");
+        System.out.println("\n");
         ImplementBasicFunctions.sample();
+        System.out.println("\n");
+        ImplementCollectFeature.sample();
     }
 }
