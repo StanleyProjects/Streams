@@ -9,5 +9,7 @@ public class App
         ImplementBasicFunctions.sample();
         System.out.println("\n");
         ImplementCollectFeature.sample();
+        System.out.println("\n");
+        SortOutAndGrouping.sample();
     }
 }
