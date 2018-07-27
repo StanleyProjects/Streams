@@ -2,12 +2,20 @@ package stan.streams.utils;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
 public abstract class MainTest
 {
     static private final Random random = new Random();
+    static protected final Comparator<Object> hascodeObjectComparator = new Comparator<Object>()
+    {
+        public int compare(Object o1, Object o2)
+        {
+            return o1.hashCode() > o2.hashCode() ? 1 : o1.hashCode() < o2.hashCode() ? -1 : 0;
+        }
+    };
 
     protected boolean nextBoolean()
     {
@@ -40,7 +48,7 @@ public abstract class MainTest
     {
         return nextList(1000 + nextInt(1000));
     }
-    private List<Object> nextList(int count)
+    protected final List<Object> nextList(int count)
     {
         List<Object> data = new ArrayList<Object>();
         for(int i=0; i<count; i++)

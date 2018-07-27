@@ -1,5 +1,8 @@
 package stan.streams;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
@@ -54,6 +57,30 @@ final class ArrayStream<T>
                 newRaw[--l] = t;
             }
         }
+        return new ArrayStream<T>(newRaw);
+    }
+    public Stream<T> cut(Comparator<T> comparator, int start, int end)
+    {
+        if(start > end)
+        {
+            throw new IndexOutOfBoundsException();
+        }
+        if(start < 0)
+        {
+            start = 0;
+        }
+        if(end > raw.length)
+        {
+            end = raw.length;
+        }
+        if(start >= raw.length
+            || end < 0)
+        {
+            return new ArrayStream<T>((T[])new Object[0]);
+        }
+        Arrays.sort(raw, comparator);
+        T[] newRaw = (T[])new Object[end - start];
+        System.arraycopy(raw, start, newRaw, 0, end - start);
         return new ArrayStream<T>(newRaw);
     }
     public <R> R turn(R r, BiConsumer<R, T> consumer)
