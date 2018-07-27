@@ -2,6 +2,7 @@ package stan.streams;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -121,13 +122,14 @@ public class CutTest
     private void cutObjectsList(int count, int start, int end)
     {
         List<Object> source = nextList(count);
-        Collections.sort(source, hascodeObjectComparator);
+        List<Object> copy1 = new ArrayList<Object>(source);
+        Collections.sort(copy1, hascodeObjectComparator);
         int s = start < 0 ? 0 : start;
         int e = end > count ? count : end;
         Object[] result = new Object[s >= count ? 0 : end < 0 ? 0 : e-s];
         for(int i=s; i<e; i++)
         {
-            result[i-s] = source.get(i);
+            result[i-s] = copy1.get(i);
         }
         int sum1 = 0;
         for(Object it: result)
@@ -135,7 +137,7 @@ public class CutTest
             sum1 += (it.hashCode() + "_" + it.hashCode()*2 + "_" + it.hashCode()/2 + "_" + it.hashCode()*it.hashCode()).hashCode();
         }
         int sum2 = 0;
-        for(Object it: Streams.from(source)
+        for(Object it: Streams.from(new ArrayList<Object>(source))
                               .cut(hascodeObjectComparator, start, end)
                               .turn(To.list()))
         {

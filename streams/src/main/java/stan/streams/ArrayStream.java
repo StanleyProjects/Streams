@@ -79,8 +79,43 @@ final class ArrayStream<T>
             return new ArrayStream<T>((T[])new Object[0]);
         }
         Arrays.sort(raw, comparator);
+        if(start == 0
+            && end == raw.length)
+        {
+            return this;
+        }
         T[] newRaw = (T[])new Object[end - start];
         System.arraycopy(raw, start, newRaw, 0, end - start);
+        return new ArrayStream<T>(newRaw);
+    }
+    public Stream<T> tail(Comparator<T> comparator, int count)
+    {
+        if(count < 0)
+        {
+            throw new IndexOutOfBoundsException();
+        }
+        Arrays.sort(raw, comparator);
+        if(count > raw.length)
+        {
+            return this;
+        }
+        T[] newRaw = (T[])new Object[count];
+        System.arraycopy(raw, 0, newRaw, 0, count);
+        return new ArrayStream<T>(newRaw);
+    }
+    public Stream<T> head(Comparator<T> comparator, int count)
+    {
+        if(count < 0)
+        {
+            throw new IndexOutOfBoundsException();
+        }
+        if(count > raw.length)
+        {
+            return this;
+        }
+        Arrays.sort(raw, comparator);
+        T[] newRaw = (T[])new Object[count];
+        System.arraycopy(raw, raw.length - count, newRaw, 0, count);
         return new ArrayStream<T>(newRaw);
     }
     public <R> R turn(R r, BiConsumer<R, T> consumer)

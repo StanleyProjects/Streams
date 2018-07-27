@@ -13,6 +13,8 @@ public interface Stream<T>
     <D> Stream<D> map(Function<T, D> consumer);
     Stream<T> filter(Predicate<T> predicate);
     Stream<T> cut(Comparator<T> comparator, int start, int end);
+    Stream<T> tail(Comparator<T> comparator, int count);
+    Stream<T> head(Comparator<T> comparator, int count);
     <R> R turn(R r, BiConsumer<R, T> consumer);
     <R> R turn(Collector<R, T> collector);
 }
