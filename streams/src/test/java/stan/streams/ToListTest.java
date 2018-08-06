@@ -9,7 +9,7 @@ import stan.streams.utils.MainTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class ToTest
+public class ToListTest
     extends MainTest
 {
     @Test
