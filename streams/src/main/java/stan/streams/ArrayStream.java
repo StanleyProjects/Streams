@@ -130,4 +130,28 @@ final class ArrayStream<T>
     {
         return turn(collector.supplier(), collector.accumulator());
     }
+    public T first(Comparator<T> comparator)
+    {
+        if(raw.length == 0)
+        {
+            return null;
+        }
+        if(raw.length > 1)
+        {
+            Arrays.sort(raw, comparator);
+        }
+        return raw[0];
+    }
+    public T last(Comparator<T> comparator)
+    {
+        if(raw.length == 0)
+        {
+            return null;
+        }
+        if(raw.length > 1)
+        {
+            Arrays.sort(raw, comparator);
+        }
+        return raw[raw.length - 1];
+    }
 }

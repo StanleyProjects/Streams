@@ -17,4 +17,6 @@ public interface Stream<T>
     Stream<T> head(Comparator<T> comparator, int count);
     <R> R turn(R r, BiConsumer<R, T> consumer);
     <R> R turn(Collector<R, T> collector);
+    T first(Comparator<T> comparator);
+    T last(Comparator<T> comparator);
 }
