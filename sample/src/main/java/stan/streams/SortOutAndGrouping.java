@@ -13,6 +13,7 @@ class SortOutAndGrouping
         System.out.println("Sort out and grouping:");
         cutSample(Arrays.asList(12, 567, 23, 54, 68, -2, 34, 0, -4));
         tailHeadSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
+        firstLastSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
     }
 
     static private void cutSample(List<Integer> source)
@@ -56,11 +57,11 @@ class SortOutAndGrouping
 
     static private void tailHeadSample(List<String> source)
     {
-        System.out.println("\t- old cut for: " + source);
+        System.out.println("\t- old tail/head for: " + source);
         long time = System.nanoTime();
         tailHeadOldSample(source);
         System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
-        System.out.println("\t- streams cut for: " + source);
+        System.out.println("\t- streams tail/head for: " + source);
         time = System.nanoTime();
         tailHeadStreamsSample(source);
         System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
@@ -102,5 +103,55 @@ class SortOutAndGrouping
                 return o1.compareTo(o2);
             }
         }, count).turn(To.<String>list()));
+    }
+
+    static private void firstLastSample(List<String> source)
+    {
+        System.out.println("\t- old first/last for: " + source);
+        long time = System.nanoTime();
+        firstLastOldSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+        System.out.println("\t- streams first/last for: " + source);
+        time = System.nanoTime();
+        firstLastStreamsSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+    }
+    static private void firstLastOldSample(List<String> source)
+    {
+        String first;
+        String last;
+        if(source.isEmpty())
+        {
+            first = null;
+            last = null;
+        }
+        else if(source.size() == 1)
+        {
+            first = source.get(0);
+            last = source.get(0);
+        }
+        else
+        {
+            Collections.sort(source);
+            first = source.get(0);
+            last = source.get(source.size() - 1);
+        }
+        System.out.println("First object is \"" + first + "\"" +
+            " and last object is \"" + last + "\"" +
+            " in alphabetic order");
+    }
+    static private void firstLastStreamsSample(List<String> source)
+    {
+        Stream<String> stream = Streams.from(source);
+        Comparator<String> comparator = new Comparator<String>()
+        {
+            public int compare(String o1, String o2)
+            {
+                return o1.compareTo(o2);
+            }
+        };
+        System.out.println("First object is \"" + stream.first(comparator) + "\"" +
+            " and last object is \"" + stream.last(comparator) + "\"" +
+            " in alphabetic order");
     }
 }

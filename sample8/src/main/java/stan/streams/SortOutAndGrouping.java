@@ -11,6 +11,7 @@ class SortOutAndGrouping
         System.out.println("Sort out and grouping:");
         cutSample(Arrays.asList(12, 567, 23, 54, 68, -2, 34, 0, -4));
         tailHeadSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
+        firstLastSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
     }
 
     static private void cutSample(List<Integer> source)
@@ -46,11 +47,11 @@ class SortOutAndGrouping
 
     static private void tailHeadSample(List<String> source)
     {
-        System.out.println("\t- java 8 tail and head for: " + source);
+        System.out.println("\t- java 8 tail/head for: " + source);
         long time = System.nanoTime();
         tailHeadJava8Sample(source);
         System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
-        System.out.println("\t- streams tail and head for: " + source);
+        System.out.println("\t- streams tail/head for: " + source);
         time = System.nanoTime();
         tailHeadStreamsSample(source);
         System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
@@ -80,5 +81,30 @@ class SortOutAndGrouping
             + Streams.from(source)
                      .head(String::compareTo, count)
                      .turn(To.list()));
+    }
+
+    static private void firstLastSample(List<String> source)
+    {
+        System.out.println("\t- java 8 first/last for: " + source);
+        long time = System.nanoTime();
+        firstLastJava8Sample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+        System.out.println("\t- streams first/last for: " + source);
+        time = System.nanoTime();
+        firstLastStreamsSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+    }
+    private static void firstLastJava8Sample(List<String> source)
+    {
+        System.out.println("First object is \"" + source.stream().min(String::compareTo).get() + "\"" +
+            " and last object is \"" + source.stream().max(String::compareTo).get() + "\"" +
+            " in alphabetic order");
+    }
+    private static void firstLastStreamsSample(List<String> source)
+    {
+        Stream<String> stream = Streams.from(source);
+        System.out.println("First object is \"" + stream.first(String::compareTo) + "\"" +
+            " and last object is \"" + stream.last(String::compareTo) + "\"" +
+            " in alphabetic order");
     }
 }
