@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import stan.streams.functions.BiConsumer;
+import stan.streams.functions.Consumer;
+import stan.streams.functions.Function;
 
 class SortOutAndGrouping
 {
@@ -14,6 +20,7 @@ class SortOutAndGrouping
         cutSample(Arrays.asList(12, 567, 23, 54, 68, -2, 34, 0, -4));
         tailHeadSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
         firstLastSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
+        groupingSample(Arrays.asList("Cat", "Dog", "Penguin", "Platypus", "Elephant", "Camel", "Goat", "Lion", "Turtle", "Crab"));
     }
 
     static private void cutSample(List<Integer> source)
@@ -153,5 +160,74 @@ class SortOutAndGrouping
         System.out.println("First object is \"" + stream.first(comparator) + "\"" +
             " and last object is \"" + stream.last(comparator) + "\"" +
             " in alphabetic order");
+    }
+
+    static private void groupingSample(List<String> source)
+    {
+        System.out.println("\t- old grouping for: " + source);
+        long time = System.nanoTime();
+        groupingOldSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+        System.out.println("\t- streams grouping for: " + source);
+        time = System.nanoTime();
+        groupingStreamsSample(source);
+        System.out.println("\ttime: " + (System.nanoTime() - time)/1000);
+    }
+    private static void groupingOldSample(List<String> source)
+    {
+        Map<String, List<String>> groups = new HashMap<String, List<String>>();
+        for(String it: source)
+        {
+            String key = it.substring(0, 1);
+            List<String> list = groups.get(key);
+            if(list == null) list = new ArrayList<String>();
+            list.add(it);
+            groups.put(key, list);
+        }
+        System.out.println("Groups:");
+        List<String> best = new ArrayList<String>();
+        for(String key: groups.keySet())
+        {
+            System.out.println(key + " -> " + groups.get(key));
+            List<String> group = groups.get(key);
+            Collections.sort(group);
+            best.add(group.get(0));
+        }
+        Collections.sort(best);
+        System.out.println("List of the best: " + best);
+    }
+    private static void groupingStreamsSample(List<String> source)
+    {
+        System.out.println("Groups:");
+        List<String> best = Streams.from(source)
+                                   .group(new Function<String, String>()
+                                   {
+                                       public String apply(String it)
+                                       {
+                                           return it.substring(0, 1);
+                                       }
+                                   })
+                                   .foreach(new Consumer<Pair<String, Stream<String>>>()
+                                   {
+                                       public void accept(Pair<String, Stream<String>> it)
+                                       {
+                                           System.out.println(it.first + " -> " + it.second.turn(To.<String>list()));
+                                       }
+                                   })
+                                   .map(new Function<Pair<String,Stream<String>>, String>()
+                                   {
+                                       public String apply(Pair<String, Stream<String>> it)
+                                       {
+                                           return it.second.first(new Comparator<String>()
+                                           {
+                                               public int compare(String o1, String o2)
+                                               {
+                                                   return o1.compareTo(o2);
+                                               }
+                                           });
+                                       }
+                                   }).turn(To.<String>list());
+        Collections.sort(best);
+        System.out.println("List of the best: " + best);
     }
 }
