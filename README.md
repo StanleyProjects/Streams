@@ -9,12 +9,24 @@ Use stream operations to express sophisticated data processing queries.
 
 |function|implement|tested|
 |-|-|-|
-|foreach|:heavy_check_mark:|:heavy_check_mark:|
+|for each|:heavy_check_mark:|:heavy_check_mark:|
 |map|:heavy_check_mark:|:heavy_check_mark:|
 |filter|:heavy_check_mark:|:heavy_check_mark:|
+
+### Sorting features
+
+|function|implement|tested|
+|-|-|-|
+|:mag: find first after sorting|:heavy_check_mark:|:heavy_check_mark:|
+|:mag: find last after sorting|:heavy_check_mark:|:heavy_check_mark:|
+|:scissors: cut from `n` to `m` after sorting|:heavy_check_mark:|:heavy_check_mark:|
+|:scissors: cut `n` from head after sorting|:heavy_check_mark:|:heavy_check_mark:|
+|:scissors: cut `n` from tail after sorting|:heavy_check_mark:|:heavy_check_mark:|
 
 ### Collect feature
 
 |function|implement|tested|
 |-|-|-|
+|custom|:heavy_check_mark:|:heavy_check_mark:|
 |to list|:heavy_check_mark:|:heavy_check_mark:|
+|to group|:heavy_check_mark:|:heavy_check_mark:|
