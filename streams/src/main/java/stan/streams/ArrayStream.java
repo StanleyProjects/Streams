@@ -1,7 +1,10 @@
 package stan.streams;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
@@ -117,6 +120,16 @@ final class ArrayStream<T>
         T[] newRaw = (T[])new Object[count];
         System.arraycopy(raw, raw.length - count, newRaw, 0, count);
         return new ArrayStream<T>(newRaw);
+    }
+    public <K> Stream<Pair<K, Stream<T>>> group(Function<T, K> function)
+    {
+        Map<K, List<T>> group = turn(To.group(function));
+        List<Pair<K, Stream<T>>> result = new ArrayList<Pair<K, Stream<T>>>(raw.length);
+        for(K key: group.keySet())
+        {
+            result.add(new Pair<K, Stream<T>>(key, new ArrayStream<T>((T[])group.get(key).toArray())));
+        }
+        return Streams.from(result);
     }
     public <R> R turn(R r, BiConsumer<R, T> consumer)
     {

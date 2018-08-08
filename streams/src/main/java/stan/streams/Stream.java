@@ -15,6 +15,7 @@ public interface Stream<T>
     Stream<T> cut(Comparator<T> comparator, int start, int end);
     Stream<T> tail(Comparator<T> comparator, int count);
     Stream<T> head(Comparator<T> comparator, int count);
+    <K> Stream<Pair<K, Stream<T>>> group(Function<T, K> function);
     <R> R turn(R r, BiConsumer<R, T> consumer);
     <R> R turn(Collector<R, T> collector);
     T first(Comparator<T> comparator);

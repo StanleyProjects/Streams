@@ -2,8 +2,11 @@ package stan.streams;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stan.streams.functions.Consumer;
 import stan.streams.utils.MainTest;
@@ -32,6 +35,46 @@ public class ForeachTest
     public void foreachStringEmptyListTest()
     {
         foreachStringListTest(Collections.<String>emptyList());
+    }
+    @Test
+    public void foreachDifficultRandomNotEmptyListTest()
+    {
+        foreachDifficultListTest(Arrays.<Map<Pair<String, Double>, Integer>>asList(
+            new HashMap<Pair<String, Double>, Integer>() {
+                {
+                    put(new Pair<String, Double>(nextString(), nextDouble()), nextInt());
+                    while(nextInt(10) != 5)
+                    {
+                        put(new Pair<String, Double>(nextString(), nextDouble()), nextInt());
+                    }
+                }
+            }, new HashMap<Pair<String, Double>, Integer>() {
+                {
+                    while(nextInt(10) != 5)
+                    {
+                        put(new Pair<String, Double>(nextString(), nextDouble()), nextInt());
+                    }
+                }
+            }, new HashMap<Pair<String, Double>, Integer>() {
+                {
+                    while(nextInt(10) != 5)
+                    {
+                        put(new Pair<String, Double>(nextString(), nextDouble()), nextInt());
+                    }
+                }
+            }, new HashMap<Pair<String, Double>, Integer>() {
+                {
+                    while(nextInt(10) != 5)
+                    {
+                        put(new Pair<String, Double>(nextString(), nextDouble()), nextInt());
+                    }
+                }
+            }));
+    }
+    @Test
+    public void foreachDifficultEmptyListTest()
+    {
+        foreachDifficultListTest(Collections.<Map<Pair<String, Double>, Integer>>emptyList());
     }
     @Test
     public void foreachObjectRandomNotEmptyListTest()
@@ -76,6 +119,38 @@ public class ForeachTest
                    public void accept(String it)
                    {
                        sum2.add(it.hashCode()*2);
+                   }
+               });
+        assertEquals("Sums must be equals!", sum1, sum2);
+    }
+    private void foreachDifficultListTest(List<Map<Pair<String, Double>, Integer>> data)
+    {
+        Sum sum1 = new Sum();
+        for(Map<Pair<String, Double>, Integer> it: data)
+        {
+            sum1.add(it.hashCode()*2);
+            for(Pair<String, Double> key: it.keySet())
+            {
+                sum1.add(key.hashCode()*3);
+                sum1.add(key.first.hashCode()*4);
+                sum1.add((int)(key.second*5));
+                sum1.add(it.get(key)*6);
+            }
+        }
+        final Sum sum2 = new Sum();
+        Streams.from(data)
+               .foreach(new Consumer<Map<Pair<String, Double>, Integer>>()
+               {
+                   public void accept(Map<Pair<String, Double>, Integer> it)
+                   {
+                       sum2.add(it.hashCode()*2);
+                       for(Pair<String, Double> key: it.keySet())
+                       {
+                           sum2.add(key.hashCode()*3);
+                           sum2.add(key.first.hashCode()*4);
+                           sum2.add((int)(key.second*5));
+                           sum2.add(it.get(key)*6);
+                       }
                    }
                });
         assertEquals("Sums must be equals!", sum1, sum2);
