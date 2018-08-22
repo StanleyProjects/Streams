@@ -1,4 +1,4 @@
-package stan.streams;
+package stan.streams.sample;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,13 +8,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stan.streams.Pair;
+import stan.streams.Stream;
+import stan.streams.Streams;
+import stan.streams.To;
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
 
-class SortOutAndGrouping
+public final class SortOutAndGrouping
 {
-    static void sample()
+    static public void sample()
     {
         System.out.println("Sort out and grouping:");
         cutSample(Arrays.asList(12, 567, 23, 54, 68, -2, 34, 0, -4));

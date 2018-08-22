@@ -1,5 +1,9 @@
 package stan.streams;
 
+import stan.streams.sample.ImplementBasicFunctions;
+import stan.streams.sample.ImplementCollectFeature;
+import stan.streams.sample.SortOutAndGrouping;
+
 public class App
 {
     static public void main(String[] args)

@@ -1,17 +1,19 @@
-package stan.streams;
+package stan.streams.sample;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import stan.streams.Streams;
+import stan.streams.To;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
 import stan.streams.functions.Predicate;
 
-class ImplementBasicFunctions
+public final class ImplementBasicFunctions
 {
-    static void sample()
+    static public void sample()
     {
         System.out.println("Basic functions:");
         foreachSample(Arrays.asList(1, 2, 3, 4, 5));

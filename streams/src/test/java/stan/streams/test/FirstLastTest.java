@@ -1,11 +1,13 @@
-package stan.streams;
+package stan.streams.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import stan.streams.Streams;
 import stan.streams.utils.MainTest;
 
 import static org.junit.Assert.assertEquals;
@@ -58,7 +60,7 @@ public class FirstLastTest
             Collections.sort(data, comparator);
             first = data.get(0);
         }
-        assertEquals("First objects must be equals!", first, Streams.from(data).first(comparator));
+        Assert.assertEquals("First objects must be equals!", first, Streams.from(data).first(comparator));
     }
     private void findLastFromList(List data)
     {

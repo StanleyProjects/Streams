@@ -1,14 +1,16 @@
-package stan.streams;
+package stan.streams.sample;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import stan.streams.Streams;
+import stan.streams.To;
 import stan.streams.functions.BiConsumer;
 
-class ImplementCollectFeature
+public final class ImplementCollectFeature
 {
-    static void sample()
+    static public void sample()
     {
         System.out.println("Collect feature:");
         turnCollectionToIntegerSample(Arrays.asList(23, 76, -12, 345, 10));

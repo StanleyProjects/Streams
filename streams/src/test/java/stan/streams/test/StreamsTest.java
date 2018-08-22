@@ -1,9 +1,10 @@
-package stan.streams;
+package stan.streams.test;
 
 import org.junit.Test;
 
 import java.util.Collections;
 
+import stan.streams.Streams;
 import stan.streams.utils.MainTest;
 
 import static org.junit.Assert.fail;

@@ -1,5 +1,6 @@
-package stan.streams;
+package stan.streams.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import stan.streams.Pair;
+import stan.streams.Stream;
+import stan.streams.Streams;
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Function;
 import stan.streams.utils.MainTest;
@@ -72,7 +76,7 @@ public class GroupTest
                 res1 += (it.length() +"_"+ it.hashCode()).hashCode();
             }
         }
-        assertEquals("Results must be equals!", res1, Streams.from(data).group(new Function<String, String>()
+        Assert.assertEquals("Results must be equals!", res1, Streams.from(data).group(new Function<String, String>()
         {
             public String apply(String it)
             {

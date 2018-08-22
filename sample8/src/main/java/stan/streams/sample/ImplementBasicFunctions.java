@@ -1,12 +1,15 @@
-package stan.streams;
+package stan.streams.sample;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-class ImplementBasicFunctions
+import stan.streams.Streams;
+import stan.streams.To;
+
+public final class ImplementBasicFunctions
 {
-    static void sample()
+    static public void sample()
     {
         System.out.println("Basic functions:");
         foreachSample(Arrays.asList(1, 2, 3, 4, 5));

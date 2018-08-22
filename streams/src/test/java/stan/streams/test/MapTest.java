@@ -1,10 +1,12 @@
-package stan.streams;
+package stan.streams.test;
 
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 
+import stan.streams.Streams;
+import stan.streams.To;
 import stan.streams.functions.Function;
 import stan.streams.utils.MainTest;
 

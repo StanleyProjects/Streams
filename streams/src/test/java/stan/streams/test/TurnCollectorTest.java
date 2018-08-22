@@ -1,16 +1,19 @@
-package stan.streams;
+package stan.streams.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 
+import stan.streams.Collector;
+import stan.streams.Streams;
 import stan.streams.functions.BiConsumer;
 import stan.streams.utils.MainTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class TurnTest
+public class TurnCollectorTest
     extends MainTest
 {
     @Test
@@ -51,11 +54,21 @@ public class TurnTest
         {
             res1 += it.length();
         }
-        assertEquals("Results must be equals!", res1, Streams.from(data).turn(new Sum(), new BiConsumer<Sum, String>()
+        Assert.assertEquals("Results must be equals!", res1, Streams.from(data).turn(new Collector<Sum, String>()
         {
-            public void accept(Sum r, String it)
+            public Sum supplier()
             {
-                r.add(it.length());
+                return new Sum();
+            }
+            public BiConsumer<Sum, String> accumulator()
+            {
+                return new BiConsumer<Sum, String>()
+                {
+                    public void accept(Sum r, String it)
+                    {
+                        r.add(it.length());
+                    }
+                };
             }
         }).value());
     }
@@ -66,11 +79,21 @@ public class TurnTest
         {
             res1 += it + "_" + it*2 + "_" + it/2 + "_" + it*it;
         }
-        assertEquals("Results must be equals!", res1, Streams.from(data).turn(new StringBuilder(), new BiConsumer<StringBuilder, Integer>()
+        assertEquals("Results must be equals!", res1, Streams.from(data).turn(new Collector<StringBuilder, Integer>()
         {
-            public void accept(StringBuilder r, Integer it)
+            public StringBuilder supplier()
             {
-                r.append(it + "_" + it*2 + "_" + it/2 + "_" + it*it);
+                return new StringBuilder();
+            }
+            public BiConsumer<StringBuilder, Integer> accumulator()
+            {
+                return new BiConsumer<StringBuilder, Integer>()
+                {
+                    public void accept(StringBuilder r, Integer it)
+                    {
+                        r.append(it + "_" + it*2 + "_" + it/2 + "_" + it*it);
+                    }
+                };
             }
         }).toString());
     }
@@ -81,11 +104,21 @@ public class TurnTest
         {
             res1 += it + "_" + it.hashCode() + "_" + it.toString();
         }
-        assertEquals("Results must be equals!", res1, Streams.from(data).turn(new StringBuilder(), new BiConsumer<StringBuilder, Object>()
+        assertEquals("Results must be equals!", res1, Streams.from(data).turn(new Collector<StringBuilder, Object>()
         {
-            public void accept(StringBuilder r, Object it)
+            public StringBuilder supplier()
             {
-                r.append(it + "_" + it.hashCode() + "_" + it.toString());
+                return new StringBuilder();
+            }
+            public BiConsumer<StringBuilder, Object> accumulator()
+            {
+                return new BiConsumer<StringBuilder, Object>()
+                {
+                    public void accept(StringBuilder r, Object it)
+                    {
+                        r.append(it + "_" + it.hashCode() + "_" + it.toString());
+                    }
+                };
             }
         }).toString());
     }

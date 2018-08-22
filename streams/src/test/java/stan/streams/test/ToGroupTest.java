@@ -1,4 +1,4 @@
-package stan.streams;
+package stan.streams.test;
 
 import org.junit.Test;
 
@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stan.streams.Streams;
+import stan.streams.To;
 import stan.streams.functions.Function;
 import stan.streams.utils.MainTest;
 

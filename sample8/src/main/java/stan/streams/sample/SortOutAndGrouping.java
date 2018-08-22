@@ -1,4 +1,4 @@
-package stan.streams;
+package stan.streams.sample;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,9 +8,13 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class SortOutAndGrouping
+import stan.streams.Stream;
+import stan.streams.Streams;
+import stan.streams.To;
+
+public final class SortOutAndGrouping
 {
-    static void sample()
+    static public void sample()
     {
         System.out.println("Sort out and grouping:");
         cutSample(Arrays.asList(12, 567, 23, 54, 68, -2, 34, 0, -4));
