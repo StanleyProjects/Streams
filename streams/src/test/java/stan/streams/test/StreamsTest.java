@@ -22,9 +22,11 @@ public class StreamsTest
     {
         List<Object> source = nextList();
         int res1 = 0;
-        for(Object it: source) res1 += it.hashCode();
+        for(Object it: source) res1 += it.hashCode() + it.hashCode()*2
+            + it.hashCode()/2 + it.hashCode()*it.hashCode();
         int res2 = 0;
-        for(Object it: Streams.from(source).turn(To.list())) res2 += it.hashCode();
+        for(Object it: Streams.from(source).turn(To.list()))
+            res2 += it.hashCode() + it.hashCode()*2 + it.hashCode()/2 + it.hashCode()*it.hashCode();
         assertEquals("Results must be equals!", res1, res2);
     }
     @Test

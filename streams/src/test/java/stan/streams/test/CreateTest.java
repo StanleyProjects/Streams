@@ -21,9 +21,11 @@ public class CreateTest
     {
         Object[] source = nextArray();
         int res1 = 0;
-        for(Object it: source) res1 += it.hashCode()*13;
+        for(Object it: source) res1 += it.hashCode() + it.hashCode()*2
+            + it.hashCode()/2 + it.hashCode()*it.hashCode();
         int res2 = 0;
-        for(Object it: Streams.from(source).turn(To.list())) res2 += it.hashCode()*13;
+        for(Object it: Streams.from(source).turn(To.list()))
+            res2 += it.hashCode() + it.hashCode()*2+ it.hashCode()/2 + it.hashCode()*it.hashCode();
         assertEquals("Results must be equals!", res1, res2);
     }
     @Test
@@ -60,12 +62,14 @@ public class CreateTest
     {
         Object[] source = new Object[]{nextObject(), nextObject(), nextObject(), nextObject()};
         int res1 = 0;
-        for(Object it: source) res1 += it.hashCode()*13;
+        for(Object it: source) res1 += it.hashCode() + it.hashCode()*2
+            + it.hashCode()/2 + it.hashCode()*it.hashCode();
         int res2 = 0;
         for(Object it: Streams.of(source[0],
             source[1],
             source[2],
-            source[3]).turn(To.list())) res2 += it.hashCode()*13;
+            source[3]).turn(To.list()))
+            res2 += it.hashCode() + it.hashCode()*2+ it.hashCode()/2 + it.hashCode()*it.hashCode();
         assertEquals("Results must be equals!", res1, res2);
     }
     @Test
@@ -100,12 +104,14 @@ public class CreateTest
     {
         Object[] source = new Object[]{nextObject(), nextObject(), nextObject(), nextObject()};
         int res1 = 0;
-        for(Object it: source) res1 += it.hashCode()*13;
+        for(Object it: source) res1 += it.hashCode() + it.hashCode()*2
+            + it.hashCode()/2 + it.hashCode()*it.hashCode();
         int res2 = 0;
         for(Object it: Streams.of(source[0],
             new Object[]{source[1],
             source[2],
-            source[3]}).turn(To.list())) res2 += it.hashCode()*13;
+            source[3]}).turn(To.list()))
+            res2 += it.hashCode() + it.hashCode()*2+ it.hashCode()/2 + it.hashCode()*it.hashCode();
         assertEquals("Results must be equals!", res1, res2);
     }
     @Test

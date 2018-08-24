@@ -9,7 +9,6 @@ import stan.streams.Streams;
 import stan.streams.To;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
-import stan.streams.functions.Predicate;
 
 public final class ImplementBasicFunctions
 {
@@ -111,9 +110,9 @@ public final class ImplementBasicFunctions
     private static void filterStreamsSample(Collection<String> source)
     {
         System.out.println(Streams.from(source)
-                                  .filter(new Predicate<String>()
+                                  .filter(new Function<String, Boolean>()
                                   {
-                                      public boolean test(String it)
+                                      public Boolean apply(String it)
                                       {
                                           return it.toLowerCase().startsWith("c")
                                               || it.toLowerCase().startsWith("p");

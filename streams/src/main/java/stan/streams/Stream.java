@@ -5,13 +5,12 @@ import java.util.Comparator;
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
-import stan.streams.functions.Predicate;
 
 public interface Stream<T>
 {
     Stream<T> foreach(Consumer<T> consumer);
     <D> Stream<D> map(Function<T, D> function);
-    Stream<T> filter(Predicate<T> predicate);
+    Stream<T> filter(Function<T, Boolean> function);
     Stream<T> cut(Comparator<T> comparator, int beginIndex, int endIndex);
     Stream<T> tail(Comparator<T> comparator, int count);
     Stream<T> head(Comparator<T> comparator, int count);

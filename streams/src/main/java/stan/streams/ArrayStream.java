@@ -9,7 +9,6 @@ import java.util.Map;
 import stan.streams.functions.BiConsumer;
 import stan.streams.functions.Consumer;
 import stan.streams.functions.Function;
-import stan.streams.functions.Predicate;
 
 final class ArrayStream<T>
     implements Stream<T>
@@ -32,12 +31,12 @@ final class ArrayStream<T>
         for(int i=0; i<raw.length; i++) newRaw[i] = function.apply(raw[i]);
         return new ArrayStream<D>(newRaw);
     }
-    public Stream<T> filter(Predicate<T> predicate)
+    public Stream<T> filter(Function<T, Boolean> function)
     {
         int l = 0;
-        for(T t: raw) if(predicate.test(t)) l++;
+        for(T t: raw) if(function.apply(t)) l++;
         T[] newRaw = (T[])new Object[l];
-        for(T t: raw) if(predicate.test(t)) newRaw[--l] = t;
+        for(T t: raw) if(function.apply(t)) newRaw[--l] = t;
         return new ArrayStream<T>(newRaw);
     }
     public Stream<T> cut(Comparator<T> comparator, int beginIndex, int endIndex)
