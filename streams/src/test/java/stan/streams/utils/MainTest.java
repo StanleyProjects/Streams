@@ -43,7 +43,33 @@ public abstract class MainTest
         random.nextBytes(array);
         return new String(array, Charset.forName("UTF-8"));
     }
+    protected final Object nextObject()
+    {
+        return nextBoolean()
+            ? nextBoolean()
+                ? nextBoolean()
+                    ? nextString()
+                    : nextInt()
+                : nextDouble()
+            : nextBoolean();
+    }
 
+    protected final Object[] nextArray()
+    {
+        return nextArray(1000 + nextInt(1000));
+    }
+    protected final Object[] nextArray(int count)
+    {
+        Object[] result = new Object[count];
+        for(int i=0; i<count; i++) result[i] = nextObject();
+        return result;
+    }
+    protected final String[] nextStringArray(int count)
+    {
+        String[] result = new String[count];
+        for(int i=0; i<count; i++) result[i] = nextString();
+        return result;
+    }
     protected final List<Object> nextList()
     {
         return nextList(1000 + nextInt(1000));
@@ -51,10 +77,7 @@ public abstract class MainTest
     protected final List<Object> nextList(int count)
     {
         List<Object> data = new ArrayList<Object>();
-        for(int i=0; i<count; i++)
-        {
-            data.add(nextBoolean() ? nextBoolean() ? nextString() : nextInt() : nextDouble());
-        }
+        for(int i=0; i<count; i++) data.add(nextObject());
         return data;
     }
 
@@ -65,10 +88,7 @@ public abstract class MainTest
     protected final List<Integer> nextIntegerList(int count)
     {
         List<Integer> data = new ArrayList<Integer>(count);
-        for(int i=0; i<count; i++)
-        {
-            data.add(1000 + nextInt(1000));
-        }
+        for(int i=0; i<count; i++) data.add(1000 + nextInt(1000));
         return data;
     }
     protected final List<String> nextStringList()
@@ -78,10 +98,7 @@ public abstract class MainTest
     protected final List<String> nextStringList(int count)
     {
         List<String> data = new ArrayList<String>(count);
-        for(int i=0; i<count; i++)
-        {
-            data.add(nextString());
-        }
+        for(int i=0; i<count; i++) data.add(nextString());
         return data;
     }
 

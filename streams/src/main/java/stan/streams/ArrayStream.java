@@ -18,10 +18,6 @@ final class ArrayStream<T>
 
     ArrayStream(T[] raw)
     {
-        if(raw == null)
-        {
-            throw new IllegalArgumentException("Array must be exist!");
-        }
         this.raw = raw;
     }
 
