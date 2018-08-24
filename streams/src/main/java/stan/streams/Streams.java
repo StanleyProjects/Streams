@@ -39,6 +39,20 @@ public final class Streams
     {
         return new ArrayStream<T>((T[])new Object[0]);
     }
+    static public Stream<Integer> range(int count)
+    {
+        if(count < 0) throw new IllegalArgumentException("Count must be not negative!");
+        Integer[] raw = new Integer[count];
+        for(int i=0; i<count; i++) raw[i] = i;
+        return new ArrayStream<Integer>(raw);
+    }
+    static public Stream<Integer> range(int from, int count)
+    {
+        if(count < 0) throw new IllegalArgumentException("Count must be not negative!");
+        Integer[] raw = new Integer[count];
+        for(int i=0; i<count; i++) raw[i] = from + i;
+        return new ArrayStream<Integer>(raw);
+    }
 
     private Streams()
     {}

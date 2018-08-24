@@ -58,33 +58,33 @@ final class ArrayStream<T>
         }
         return new ArrayStream<T>(newRaw);
     }
-    public Stream<T> cut(Comparator<T> comparator, int start, int end)
+    public Stream<T> cut(Comparator<T> comparator, int beginIndex, int endIndex)
     {
-        if(start > end)
+        if(beginIndex > endIndex)
         {
             throw new IndexOutOfBoundsException();
         }
-        if(start < 0)
+        if(beginIndex < 0)
         {
-            start = 0;
+            beginIndex = 0;
         }
-        if(end > raw.length)
+        if(endIndex > raw.length)
         {
-            end = raw.length;
+            endIndex = raw.length;
         }
-        if(start >= raw.length
-            || end < 0)
+        if(beginIndex >= raw.length
+            || endIndex < 0)
         {
             return new ArrayStream<T>((T[])new Object[0]);
         }
         Arrays.sort(raw, comparator);
-        if(start == 0
-            && end == raw.length)
+        if(beginIndex == 0
+            && endIndex == raw.length)
         {
             return this;
         }
-        T[] newRaw = (T[])new Object[end - start];
-        System.arraycopy(raw, start, newRaw, 0, end - start);
+        T[] newRaw = (T[])new Object[endIndex - beginIndex];
+        System.arraycopy(raw, beginIndex, newRaw, 0, endIndex - beginIndex);
         return new ArrayStream<T>(newRaw);
     }
     public Stream<T> tail(Comparator<T> comparator, int count)

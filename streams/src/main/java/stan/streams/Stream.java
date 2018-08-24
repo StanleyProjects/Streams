@@ -12,7 +12,7 @@ public interface Stream<T>
     Stream<T> foreach(Consumer<T> consumer);
     <D> Stream<D> map(Function<T, D> function);
     Stream<T> filter(Predicate<T> predicate);
-    Stream<T> cut(Comparator<T> comparator, int start, int end);
+    Stream<T> cut(Comparator<T> comparator, int beginIndex, int endIndex);
     Stream<T> tail(Comparator<T> comparator, int count);
     Stream<T> head(Comparator<T> comparator, int count);
     <K> Stream<Pair<K, Stream<T>>> group(Function<T, K> function);
