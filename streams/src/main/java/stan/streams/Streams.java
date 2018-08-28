@@ -20,6 +20,20 @@ public final class Streams
         System.arraycopy(items, 0, raw, 0, items.length);
         return new ArrayStream<T>(raw);
     }
+    static private Stream<Character> from(char[] items)
+    {
+        Character[] raw = new Character[items.length];
+        for(int i=0; i<items.length; i++) raw[i] = items[i];
+        return new ArrayStream<Character>(raw);
+    }
+    static public Stream<Character> from(String string)
+    {
+        if(string == null) throw new IllegalArgumentException("String must be exist!");
+        char[] items = string.toCharArray();
+        if(items.length == 0) return empty();
+        if(items.length == 1) return of(items[0]);
+        return from(items);
+    }
     static public <T> Stream<T> of(T it, T... items)
     {
         if(items == null) throw new IllegalArgumentException("Array must be exist!");
@@ -41,10 +55,7 @@ public final class Streams
     }
     static public Stream<Integer> range(int count)
     {
-        if(count < 0) throw new IllegalArgumentException("Count must be not negative!");
-        Integer[] raw = new Integer[count];
-        for(int i=0; i<count; i++) raw[i] = i;
-        return new ArrayStream<Integer>(raw);
+        return range(0, count);
     }
     static public Stream<Integer> range(int from, int count)
     {
