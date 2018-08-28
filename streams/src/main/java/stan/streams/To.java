@@ -80,6 +80,24 @@ public final class To
         });
     }
 
+    static public final Collector<StringBuilder, Character> string = new Collector<StringBuilder, Character>()
+    {
+        public StringBuilder supplier()
+        {
+            return new StringBuilder();
+        }
+        public BiConsumer<StringBuilder, Character> accumulator()
+        {
+            return new BiConsumer<StringBuilder, Character>()
+            {
+                public void accept(StringBuilder r, Character it)
+                {
+                    r.append(it.charValue());
+                }
+            };
+        }
+    };
+
     private To()
     {}
 }

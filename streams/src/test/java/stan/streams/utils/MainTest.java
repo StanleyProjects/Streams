@@ -29,6 +29,10 @@ public abstract class MainTest
     {
         return random.nextInt(range);
     }
+    protected final char nextChar()
+    {
+        return (char)random.nextInt(Character.MAX_VALUE);
+    }
     protected final long nextLong()
     {
         return random.nextInt();
@@ -54,6 +58,16 @@ public abstract class MainTest
             : nextBoolean();
     }
 
+    protected final char[] nextCharArray()
+    {
+        return nextCharArray(1000 + nextInt(1000));
+    }
+    private char[] nextCharArray(int count)
+    {
+        char[] result = new char[count];
+        for(int i=0; i<count; i++) result[i] = nextChar();
+        return result;
+    }
     protected final Object[] nextArray()
     {
         return nextArray(1000 + nextInt(1000));
@@ -81,6 +95,16 @@ public abstract class MainTest
         return data;
     }
 
+    protected final List<Character> nextCharacterList()
+    {
+        return nextCharacterList(1000 + nextInt(1000));
+    }
+    protected final List<Character> nextCharacterList(int count)
+    {
+        List<Character> data = new ArrayList<Character>(count);
+        for(int i=0; i<count; i++) data.add(nextChar());
+        return data;
+    }
     protected final List<Integer> nextIntegerList()
     {
         return nextIntegerList(1000 + nextInt(1000));
