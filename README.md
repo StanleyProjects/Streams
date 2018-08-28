@@ -5,6 +5,13 @@ Use stream operations to express sophisticated data processing queries.
 
 <img src="media/icon.png" width="128" height="128"/>
 
+### Now you can create a stream:
+
+- from `java.util.Collection`, `java.util.Map`, Array, `java.lang.String`
+- of one element or varargs
+- of range from `n` to `m`
+- just `empty`
+
 ### Basic functions
 
 |function|implement|tested|
