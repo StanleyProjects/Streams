@@ -1,15 +1,34 @@
 package stan.streams;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 public final class Streams
 {
+    static private <T> Stream<T> collection(Collection<T> collection)
+    {
+        return new ArrayStream<T>((T[])collection.toArray());
+    }
     static public <T> Stream<T> from(Collection<T> collection)
     {
         if(collection == null) throw new IllegalArgumentException("Collection must be exist!");
         if(collection.isEmpty()) return empty();
         if(collection.size() == 1) return of(collection.iterator().next());
-        return new ArrayStream<T>((T[])collection.toArray());
+        return collection(collection);
+    }
+    static public <K, V> Stream<Pair<K, V>> from(Map<K, V> map)
+    {
+        if(map == null) throw new IllegalArgumentException("Collection must be exist!");
+        if(map.isEmpty()) return empty();
+        if(map.size() == 1)
+        {
+            K key = map.keySet().iterator().next();
+            return of(new Pair<K, V>(key, map.get(key)));
+        }
+        Collection<Pair<K, V>> collection = new ArrayList<Pair<K, V>>(map.size());
+        for(K key: map.keySet()) collection.add(new Pair<K, V>(key, map.get(key)));
+        return collection(collection);
     }
     static public <T> Stream<T> from(T[] items)
     {
